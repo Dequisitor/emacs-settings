@@ -7,6 +7,7 @@
 (setq tab-width 4)
 (setq-default tab-always-indent 'complete)
 (setq scroll-step 1)
+;(setq indent-tabs-mode 1)
 
 (require 'package)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
@@ -78,10 +79,10 @@
 ;;;whitespace stuff
 ;(setq show-trailing-whitespace 1)    
 (setq-default truncate-lines 1)
-(setq whitespace-space-regexp "[^\s-]\\( +\\)[^\s-]")
-(setq whitespace-trailing-regexp "\\(^ +\\| +$\\)")
+(setq whitespace-space-regexp "[^\s]\\( +\\)[^\s]")
+(setq whitespace-trailing-regexp "\\(\\(^\\|\t\\) +\\| +$\\)")
 (setq whitespace-style (quote (face tabs spaces tab-mark space-mark trailing)))
-(setq whitespace-display-mappings '((space-mark 32 [183])(tab-mark 9 [?\u2502 9])))
+(setq whitespace-display-mappings '((space-mark 32 [183]) (tab-mark 9 [?\u2502 9])))
 ;(global-whitespace-mode 1)
 (custom-set-faces
  '(whitespace-space ((t (:background "#20201d" :foreground "#20201d"))))
