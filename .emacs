@@ -7,6 +7,7 @@
 (setq tab-width 4)
 (setq-default tab-always-indent 'complete)
 (setq scroll-step 1)
+(global-hl-line-mode 1)
 ;(setq indent-tabs-mode 1)
 
 (require 'package)
@@ -63,12 +64,16 @@
 
 (require 'org)
 (setq org-log-done t)
+(require 'evil-org)
 
 (require 'web-mode)
 (setq web-mode-markup-indent-offset 4
 	  web-mode-css-indent 4
 	  web-mode-code-indent-offset 4)
 (setq js-indent-level 4)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
 
 (require 'flycheck)
 (global-flycheck-mode)
@@ -84,10 +89,31 @@
 (setq whitespace-style (quote (face tabs spaces tab-mark space-mark trailing)))
 (setq whitespace-display-mappings '((space-mark 32 [183]) (tab-mark 9 [?\u2502 9])))
 ;(global-whitespace-mode 1)
+
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(whitespace-space ((t (:background "#20201d" :foreground "#20201d"))))
- '(whitespace-trailing ((t (:background "#20201d" :foreground "#888888"))))
- '(whitespace-tab ((t (:background "#20201d" :foreground "#888888")))))
+ '(whitespace-tab ((t (:background "#20201d" :foreground "#888888"))))
+ '(whitespace-trailing ((t (:background "#20201d" :foreground "#888888")))))
+
+;;; autocomplete
+;(ac-config-default)
+
+;;; tern and friends
+(add-to-list 'load-path "d:/tern/emacs")
+(autoload 'tern-node "tern.el" nil t)
+(add-hook 'web-mode-hook (lambda () (tern-mode t)))
+;(eval-after-load 'tern
+  ;'(progn
+	 ;(require 'tern-auto-complete)
+	 ;(tern-ac-setup)))
+
+(require 'company)
+(company-mode 1)
+(add-to-list 'company-backends 'company-tern)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -99,7 +125,7 @@
 	("cabc32838ccceea97404f6fcb7ce791c6e38491fd19baa0fcfb336dcc5f6e23c" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "98cc377af705c0f2133bb6d340bf0becd08944a588804ee655809da5d8140de6" "c7a9a68bd07e38620a5508fef62ec079d274475c8f92d75ed0c33c45fbe306bc" default)))
  '(package-selected-packages
    (quote
-	(zenburn-theme all-the-icons telephone-line smart-mode-line-powerline-theme smart-mode-line neotree material-theme monokai-theme key-chord evil-surround evil-leader org-evil evil-numbers evil ack)))
+	(company-tern company auto-complete zenburn-theme all-the-icons telephone-line smart-mode-line-powerline-theme smart-mode-line neotree material-theme monokai-theme key-chord evil-surround evil-leader org-evil evil-numbers evil ack)))
  '(show-paren-mode t))
 
 (setq custom-safe-themes t)
